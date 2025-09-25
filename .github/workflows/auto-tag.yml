@@ -24,7 +24,18 @@ jobs:
 
       - name: Read version from package.json
         id: ver
-        run: echo "VERSION=$(node -p \"require('./package.json').version\")" >> $GITHUB_OUTPUT
+        shell: bash
+        run: |
+          if command -v jq >/dev/null 2>&1; then
+            VER=$(jq -r '.version' package.json)
+          else
+            VER=$(node -e "console.log(require('./package.json').version)")
+          fi
+          if [ -z "$VER" ]; then
+            echo "Failed to read version" >&2
+            exit 1
+          fi
+          echo "VERSION=$VER" >> "$GITHUB_OUTPUT"
 
       - name: Create and push git tag
         run: |
@@ -40,3 +51,9 @@ jobs:
           fi
           git tag "v$VERSION" ${{ github.event.workflow_run.head_sha }}
           git push origin "v$VERSION"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.ver.outputs.VERSION }}
+          generate_release_notes: true
