@@ -1,5 +1,5 @@
 {
-  "name": "@synthik/client",
+  "name": "synthik-client",
   "version": "0.1.0",
   "description": "TypeScript client for Synthik Labs synthetic data generation API",
   "type": "module",

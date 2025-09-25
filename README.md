@@ -13,7 +13,7 @@ pnpm -C clients/typescript build
 ## Usage
 
 ```ts
-import SynthikClient, { ColumnBuilder, type DatasetGenerationRequest } from "@synthik/client";
+import SynthikClient, { ColumnBuilder, type DatasetGenerationRequest } from "synthik-client";
 
 // Base URL is preconfigured inside the client; no configuration needed.
 const client = new SynthikClient();
