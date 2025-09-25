@@ -29,8 +29,13 @@ jobs:
 
       - name: Publish to npm
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --access public
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN || secrets.npm_token }}
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "Missing NPM token (NPM_TOKEN or npm_token)" >&2
+            exit 1
+          fi
+          npm publish --access public
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
