@@ -1,0 +1,30 @@
+{
+  "name": "@synthik/client",
+  "version": "0.1.0",
+  "description": "TypeScript client for Synthik Labs synthetic data generation API",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "author": "Synthik Labs",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Synthik-Labs/synthik-backend.git",
+    "directory": "clients/typescript"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}
